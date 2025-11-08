@@ -31,6 +31,7 @@ public class MainMenu {
 
             switch (opcion) {
                 case 1 -> {
+                    TableManager.eliminarTablas(connection);
                     TableManager.crearTablas(connection);
                     TableManager.insertarDatosIniciales(connection);
                 }

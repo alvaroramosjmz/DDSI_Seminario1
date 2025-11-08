@@ -15,14 +15,30 @@ import java.sql.Statement;
  */
 public class TableManager {
     
-   public static void crearTablas(Connection connection) throws SQLException {
+    public static void eliminarTablas(Connection connection)throws SQLException {
+        
         Statement stmt = connection.createStatement();
-
-        // Eliminar tablas si existen (para reiniciar la base de datos)
-        try { stmt.executeUpdate("DROP TABLE Detalle_Pedido CASCADE CONSTRAINTS PURGE"); } catch (SQLException e) {}
-        try { stmt.executeUpdate("DROP TABLE Pedido CASCADE CONSTRAINTS PURGE"); } catch (SQLException e) {}
-        try { stmt.executeUpdate("DROP TABLE Stock CASCADE CONSTRAINTS PURGE"); } catch (SQLException e) {}
-
+        
+        // Eliminar tablas si existen (para reiniciar la base de datos) y sus restricciones asociadas por orden de dependencia
+        try { 
+            stmt.executeUpdate("DROP TABLE Detalle_Pedido CASCADE CONSTRAINTS"); 
+        } catch (SQLException e) {}
+        
+        try { 
+            stmt.executeUpdate("DROP TABLE Pedido CASCADE CONSTRAINTS"); 
+        } catch (SQLException e) {}
+        
+        try { 
+            stmt.executeUpdate("DROP TABLE Stock CASCADE CONSTRAINTS"); 
+        } catch (SQLException e) {}
+        
+        stmt.close();
+        connection.commit();
+    }
+    public static void crearTablas(Connection connection) throws SQLException {
+        
+        Statement stmt = connection.createStatement();
+        
         // Crear tablas según el enunciado
         stmt.executeUpdate(
             "CREATE TABLE Stock (" +
@@ -45,7 +61,8 @@ public class TableManager {
             "FOREIGN KEY (Cpedido) REFERENCES Pedido(Cpedido), " +
             "FOREIGN KEY (Cproducto) REFERENCES Stock(Cproducto))"
         );
-
+        
+        stmt.close();
         connection.commit();
         System.out.println("Tablas creadas correctamente.");
     }
