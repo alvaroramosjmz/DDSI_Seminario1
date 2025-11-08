@@ -23,9 +23,14 @@ public class DBConnection {
         // Comprobamos previamente si no hay una conexión abierta. Si la hay, devuelve la misma
         if(connection == null){
             try{
-                // Definimos la URL JDBC de conexion
-                String url = "jdbc:oracle:thin:@oracle0.ugr.es:1521:practbd";
                 
+                String nombre_servidor = "oracle0.ugr.es";
+                String num_puerto = "1521";
+                String service_name = "practbd";
+                
+                // Definimos la URL JDBC de conexion
+                String url = "jdbc:oracle:thin:@//" + nombre_servidor + ":" + num_puerto + "/" + service_name;
+            
                 // Credenciales de acceso a Oracle
                 String user = "x5570745";
                 String password = "x5570745";
