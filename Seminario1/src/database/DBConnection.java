@@ -32,8 +32,8 @@ public class DBConnection {
                 String url = "jdbc:oracle:thin:@//" + nombre_servidor + ":" + num_puerto + "/" + service_name;
             
                 // Credenciales de acceso a Oracle
-                String user = "x5570745";
-                String password = "x5570745";
+                String user = "x7034010";
+                String password = "x7034010";
                 
                 // Crea la conexión --> busca un driver que comprenda la URL y abre una sesión en la BD 
                 connection = DriverManager.getConnection(url, user, password);
