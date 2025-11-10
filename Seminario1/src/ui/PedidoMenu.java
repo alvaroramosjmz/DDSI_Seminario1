@@ -55,7 +55,7 @@ public class PedidoMenu {
                         }
                     }
                     case 2 -> { //eliminamos todos los detalles
-                        stmt.executeUpdate("DELETE FROM Detalle_Pedido WHERE Cpedido = " + idPedido);
+                        // stmt.executeUpdate("DELETE FROM Detalle_Pedido WHERE Cpedido = " + idPedido);
                         connection.rollback(saveBeforeDetails); //volvemos a nuestro ultimo punto guardado, antes de añadir los detalles
                         System.out.println("Detalles eliminados (rollback al savepoint).");
                     }

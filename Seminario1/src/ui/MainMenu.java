@@ -6,6 +6,8 @@ package ui;
 
 import database.DBConnection;
 import database.TableManager;
+import database.TableVisualizer;
+
 import java.sql.Connection;
 import java.util.Scanner;
 
@@ -37,7 +39,7 @@ public class MainMenu {
                 }
                 case 2 -> PedidoMenu.mostrar(connection);
                 case 3 -> {
-                    System.out.println("Visualizacion de tablas no implementada todavia.");
+                    TableVisualizer.mostrarTablas(connection);
                 }
                 case 4 -> DBConnection.closeConnection();
                 default -> System.out.println("Opcion no valida.");
