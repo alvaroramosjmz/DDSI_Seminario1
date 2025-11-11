@@ -24,8 +24,8 @@ public class PedidoMenu {
             System.out.print("Introduce el codigo del cliente: ");
             int idCliente = sc.nextInt();
 
-            Statement stmt = connection.createStatement(); //objeto para ejecutar en sql
-            stmt.executeUpdate("INSERT INTO Pedido VALUES (" + idPedido + ", " + idCliente + ", SYSDATE)"); //metemos nuevo pedido en la tabla
+            Statement stmt = connection.createStatement(); //objeto para ejecutar sentencias SQL en la BD
+            stmt.executeUpdate("INSERT INTO Pedido VALUES (" + idPedido + ", " + idCliente + ", SYSDATE)"); //metemos nuevo pedido en la tabla PEDIDO
             Savepoint saveBeforeDetails = connection.setSavepoint("AntesDeDetalles"); //marcamos un punto de control por si algo sale mal, podemos volver a este punto
 
             boolean terminado = false;
@@ -33,8 +33,8 @@ public class PedidoMenu {
             while (!terminado) {
                 System.out.println("1. Aniadir detalle de producto");
                 System.out.println("2. Eliminar todos los detalles");
-                System.out.println("3. Cancelar pedido (ROLLBACK)");
-                System.out.println("4. Finalizar pedido (COMMIT)");
+                System.out.println("3. Cancelar pedido");
+                System.out.println("4. Finalizar pedido");
                 System.out.print("Opcion: ");
                 int opcion = sc.nextInt();
 
@@ -46,7 +46,8 @@ public class PedidoMenu {
                         int cantidad = sc.nextInt();
 
                         ResultSet rs = stmt.executeQuery("SELECT Cantidad FROM Stock WHERE Cproducto = " + idProd); //objeto java que almacena resultado de una consulta sql
-                        if (rs.next() && rs.getInt(1) >= cantidad) { //si existe la fila del producto y hay suficiente stock //rs.getInt(1) obtiene el valor de la primera columna de la fila actual del ResultSet.
+                        if (rs.next() && rs.getInt(1) >= cantidad) { //si existe producto con ese id (hay 1 fila) y hay suficiente stock //rs.getInt(1) obtiene el valor de la primera columna de la fila actual del ResultSet.
+                            // Aniadimos nueva fila detalle_pedido y actualizamos la cantidad del producto en tabla Stock
                             stmt.executeUpdate("INSERT INTO Detalle_Pedido VALUES (" + idPedido + "," + idProd + "," + cantidad + ")");
                             stmt.executeUpdate("UPDATE Stock SET Cantidad = Cantidad - " + cantidad + " WHERE Cproducto = " + idProd);
                             System.out.println("Producto aniadido correctamente.");

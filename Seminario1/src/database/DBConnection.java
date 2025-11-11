@@ -52,7 +52,7 @@ public class DBConnection {
     }
     
     
-    // Método para cerrar la conexión cuando el programa termine
+    // Método para cerrar la conexión
     public static void closeConnection(){
         
         try{

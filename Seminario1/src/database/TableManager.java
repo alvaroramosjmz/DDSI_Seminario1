@@ -6,7 +6,7 @@ package database;
 
 import java.sql.Connection;// conexión activa con la DB
 import java.sql.SQLException; //// para lanzar excepciones cuando ocurren errores SQL o de conexion
-import java.sql.Statement;
+import java.sql.Statement; // para enviar sentencias SQL a traves de conexion JDBC
 
 
 /**
