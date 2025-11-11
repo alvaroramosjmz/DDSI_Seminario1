@@ -6,6 +6,7 @@ package ui;
 
 import java.sql.*;
 import java.util.Scanner;
+import database.TableVisualizer;
 
 /**
  *
@@ -54,16 +55,19 @@ public class PedidoMenu {
                         } else {
                             System.out.println("No hay suficiente stock para este producto.");
                         }
+                        TableVisualizer.mostrarTablas(connection);
                     }
                     case 2 -> { //eliminamos todos los detalles
                         // stmt.executeUpdate("DELETE FROM Detalle_Pedido WHERE Cpedido = " + idPedido);
                         connection.rollback(saveBeforeDetails); //volvemos a nuestro ultimo punto guardado, antes de añadir los detalles
                         System.out.println("Detalles eliminados (rollback al savepoint).");
+                        TableVisualizer.mostrarTablas(connection);
                     }
                     case 3 -> {
                         connection.rollback(); //borra todo hasta el ultimo commit
                         System.out.println("Pedido cancelado (rollback total).");
                         terminado = true;
+                        TableVisualizer.mostrarTablas(connection);
                     }
                     case 4 -> {
                         connection.commit(); //guardamos todos los cambios de haber añadido los detalles

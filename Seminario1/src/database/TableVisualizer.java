@@ -45,7 +45,7 @@ public class TableVisualizer {
                 int idProducto = rs.getInt("Cproducto");
                 int cantidad = rs.getInt("Cantidad");
                 if (rs.wasNull()) cantidad = 0;
-                System.out.printf("Pedido: %-5d | Producto: %-5d | Cantidad: %-5d", idPedido, idProducto, cantidad);
+                System.out.printf("Pedido: %-5d | Producto: %-5d | Cantidad: %-5d%n", idPedido, idProducto, cantidad);
             }
             
             rs.close();
